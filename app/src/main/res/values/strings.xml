@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Peliculator</string>
+    <string name="title_activity_series">Series</string>
+    <string name="title_activity_favoritos">Favoritos</string>
+</resources>
