@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -48,7 +49,7 @@ fun ActorDetalleScreen(actorId: Int, navController: NavController) {
                         val imageUrl = "https://image.tmdb.org/t/p/w500${actorDetails.profilePath}"
                         AsyncImage(
                             model = imageUrl,
-                            contentDescription = "Foto de ${actorDetails.name}",
+                            contentDescription = stringResource(id = R.string.cast_member_photo_content_description, actorDetails.name),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .aspectRatio(2 / 3f)
@@ -72,12 +73,12 @@ fun ActorDetalleScreen(actorId: Int, navController: NavController) {
                 }
                 item {
                     Column(modifier = Modifier.padding(16.dp)) {
-                        Text(text = "Biografía", style = typography.titleMedium)
+                        Text(text = stringResource(id = R.string.actor_details_biography), style = typography.titleMedium)
                         Text(text = actorDetails.biography, style = typography.bodyMedium)
                     }
                 }
                 item {
-                    Text(text = "Conocido/a por", style = typography.titleMedium, modifier = Modifier.padding(16.dp))
+                    Text(text = stringResource(id = R.string.actor_details_known_for), style = typography.titleMedium, modifier = Modifier.padding(16.dp))
                     LazyRow(modifier = Modifier.padding(horizontal = 16.dp)) {
                         items(credits) { credit ->
                             Card(
@@ -93,7 +94,7 @@ fun ActorDetalleScreen(actorId: Int, navController: NavController) {
                                 Box(modifier = Modifier.width(120.dp).height(180.dp)) {
                                     AsyncImage(
                                         model = "https://image.tmdb.org/t/p/w500${credit.posterPath}",
-                                        contentDescription = "Poster de ${credit.title ?: credit.name}",
+                                        contentDescription = stringResource(id = R.string.credit_poster_content_description, credit.title ?: credit.name ?: ""),
                                         modifier = Modifier.fillMaxSize()
                                     )
                                     Box(
@@ -120,7 +121,7 @@ fun ActorDetalleScreen(actorId: Int, navController: NavController) {
             }
         } else {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text("Cargando detalles del actor...")
+                Text(stringResource(id = R.string.loading_actor_details))
             }
         }
 
@@ -134,7 +135,7 @@ fun ActorDetalleScreen(actorId: Int, navController: NavController) {
             IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Atrás",
+                    contentDescription = stringResource(id = R.string.back_button_content_description),
                     tint = Color.White,
                     modifier = Modifier
                         .clip(CircleShape)

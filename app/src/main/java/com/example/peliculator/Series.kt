@@ -35,6 +35,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
@@ -73,8 +74,8 @@ fun SeriesScreen(
             TextField(
                 value = viewModel.searchQuery,
                 onValueChange = { viewModel.onSearchQueryChange(it) },
-                label = { Text("Buscar series") },
-                leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "Search Icon") },
+                label = { Text(stringResource(id = R.string.search_series_placeholder)) },
+                leadingIcon = { Icon(Icons.Filled.Search, contentDescription = stringResource(id = R.string.search_icon_content_description)) },
                 shape = RoundedCornerShape(8.dp),
                 colors = TextFieldDefaults.colors(
                     focusedIndicatorColor = Color.Transparent,
@@ -110,7 +111,7 @@ fun SeriesScreen(
 
         LazyColumn(modifier = Modifier.padding(8.dp), state = lazyListState) {
             item {
-                Text(text = "Series En Emisión", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(8.dp))
+                Text(text = stringResource(id = R.string.series_on_air), style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(8.dp))
                 if (viewModel.seriesActuales.isEmpty()) {
                     LazyRow {
                         items(5) { PlaceholderItem() }
@@ -128,7 +129,7 @@ fun SeriesScreen(
                                 Box(modifier = Modifier.width(120.dp).height(180.dp)) {
                                     AsyncImage(
                                         model = "$imageBaseUrl${serie.posterPath}",
-                                        contentDescription = "Poster de la serie ${serie.name}",
+                                        contentDescription = stringResource(id = R.string.series_poster_content_description, serie.name),
                                         modifier = Modifier.fillMaxSize()
                                     )
                                     Box(
@@ -154,7 +155,7 @@ fun SeriesScreen(
                 }
             }
             item {
-                Text(text = "Series Populares", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(8.dp))
+                Text(text = stringResource(id = R.string.series_popular), style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(8.dp))
                 if (viewModel.seriesPopulares.isEmpty()) {
                     LazyRow {
                         items(5) { PlaceholderItem() }
@@ -172,7 +173,7 @@ fun SeriesScreen(
                                 Box(modifier = Modifier.width(120.dp).height(180.dp)) {
                                     AsyncImage(
                                         model = "$imageBaseUrl${serie.posterPath}",
-                                        contentDescription = "Poster de la serie ${serie.name}",
+                                        contentDescription = stringResource(id = R.string.series_poster_content_description, serie.name),
                                         modifier = Modifier.fillMaxSize()
                                     )
                                     Box(
@@ -198,7 +199,7 @@ fun SeriesScreen(
                 }
             }
             item {
-                Text(text = "Series Mejor Valoradas", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(8.dp))
+                Text(text = stringResource(id = R.string.series_top_rated), style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(8.dp))
                 if (viewModel.seriesTopRated.isEmpty()) {
                     LazyRow {
                         items(5) { PlaceholderItem() }
@@ -216,7 +217,7 @@ fun SeriesScreen(
                                 Box(modifier = Modifier.width(120.dp).height(180.dp)) {
                                     AsyncImage(
                                         model = "$imageBaseUrl${serie.posterPath}",
-                                        contentDescription = "Poster de la serie ${serie.name}",
+                                        contentDescription = stringResource(id = R.string.series_poster_content_description, serie.name),
                                         modifier = Modifier.fillMaxSize()
                                     )
                                     Box(

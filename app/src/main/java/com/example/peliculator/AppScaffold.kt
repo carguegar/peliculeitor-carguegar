@@ -12,15 +12,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 
-sealed class Screen(val route: String) {
-    object Peliculas : Screen("peliculas")
-    object Series : Screen("series")
-    object Favoritos : Screen("favoritos")
+sealed class Screen(val route: String, val resourceId: Int) {
+    object Peliculas : Screen("peliculas", R.string.bottom_nav_movies)
+    object Series : Screen("series", R.string.bottom_nav_series)
+    object Favoritos : Screen("favoritos", R.string.bottom_nav_favorites)
 }
 
 private val items = listOf(
@@ -59,17 +60,13 @@ private fun AppBottomNavigationBar(navController: NavController) {
             NavigationBarItem(
                 icon = {
                     when (screen) {
-                        Screen.Peliculas -> Icon(Icons.Filled.Movie, contentDescription = "Películas")
-                        Screen.Series -> Icon(Icons.Filled.LiveTv, contentDescription = "Series")
-                        Screen.Favoritos -> Icon(Icons.Filled.Favorite, contentDescription = "Favoritos")
+                        Screen.Peliculas -> Icon(Icons.Filled.Movie, contentDescription = stringResource(id = R.string.bottom_nav_movies))
+                        Screen.Series -> Icon(Icons.Filled.LiveTv, contentDescription = stringResource(id = R.string.bottom_nav_series))
+                        Screen.Favoritos -> Icon(Icons.Filled.Favorite, contentDescription = stringResource(id = R.string.bottom_nav_favorites))
                     }
                 },
                 label = {
-                    when (screen) {
-                        Screen.Peliculas -> Text("Películas")
-                        Screen.Series -> Text("Series")
-                        Screen.Favoritos -> Text("Favoritos")
-                    }
+                    Text(stringResource(id = screen.resourceId))
                 },
                 selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                 onClick = {

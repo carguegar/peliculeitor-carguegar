@@ -35,6 +35,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
@@ -74,8 +75,8 @@ fun PeliculasScreen(
             TextField(
                 value = viewModel.searchQuery,
                 onValueChange = { viewModel.onSearchQueryChange(it) },
-                label = { Text("Buscar películas") },
-                leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "Search Icon") },
+                label = { Text(stringResource(id = R.string.search_movies_placeholder)) },
+                leadingIcon = { Icon(Icons.Filled.Search, contentDescription = stringResource(id = R.string.search_icon_content_description)) },
                 shape = RoundedCornerShape(8.dp),
                 colors = TextFieldDefaults.colors(
                     focusedIndicatorColor = Color.Transparent,
@@ -113,7 +114,7 @@ fun PeliculasScreen(
 
         LazyColumn(state = lazyListState) {
             item {
-                Text(text = "En cartelera", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(8.dp))
+                Text(text = stringResource(id = R.string.movies_in_theaters), style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(8.dp))
                 if (viewModel.peliculasCartelera.isEmpty()) {
                     LazyRow {
                         items(5) { PlaceholderItem() }
@@ -131,7 +132,7 @@ fun PeliculasScreen(
                                 Box(modifier = Modifier.width(120.dp).height(180.dp)) {
                                     AsyncImage(
                                         model = "$imageBaseUrl${pelicula.posterPath}",
-                                        contentDescription = "Poster de la película ${pelicula.title}",
+                                        contentDescription = stringResource(id = R.string.movie_poster_content_description, pelicula.title),
                                         modifier = Modifier.fillMaxSize()
                                     )
                                     Box(
@@ -157,7 +158,7 @@ fun PeliculasScreen(
                 }
             }
             item {
-                Text(text = "Próximamente", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(8.dp))
+                Text(text = stringResource(id = R.string.movies_coming_soon), style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(8.dp))
                 if (viewModel.peliculasProximas.isEmpty()) {
                     LazyRow {
                         items(5) { PlaceholderItem() }
@@ -175,7 +176,7 @@ fun PeliculasScreen(
                                 Box(modifier = Modifier.width(120.dp).height(180.dp)) {
                                     AsyncImage(
                                         model = "$imageBaseUrl${pelicula.posterPath}",
-                                        contentDescription = "Poster de la película ${pelicula.title}",
+                                        contentDescription = stringResource(id = R.string.movie_poster_content_description, pelicula.title),
                                         modifier = Modifier.fillMaxSize()
                                     )
                                     Box(
@@ -201,7 +202,7 @@ fun PeliculasScreen(
                 }
             }
             item {
-                Text(text = "Mejor valoradas", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(8.dp))
+                Text(text = stringResource(id = R.string.movies_top_rated), style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(8.dp))
                 if (viewModel.peliculasTopRated.isEmpty()) {
                     LazyRow {
                         items(5) { PlaceholderItem() }
@@ -219,7 +220,7 @@ fun PeliculasScreen(
                                 Box(modifier = Modifier.width(120.dp).height(180.dp)) {
                                     AsyncImage(
                                         model = "$imageBaseUrl${pelicula.posterPath}",
-                                        contentDescription = "Poster de la película ${pelicula.title}",
+                                        contentDescription = stringResource(id = R.string.movie_poster_content_description, pelicula.title),
                                         modifier = Modifier.fillMaxSize()
                                     )
                                     Box(

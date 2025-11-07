@@ -39,6 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -136,7 +137,7 @@ fun PeliculaDetallesScreen(peliculaId: Int, navController: NavController) {
                     Box {
                         AsyncImage(
                             model = "$imageBaseUrl${details.posterPath}",
-                            contentDescription = "Poster de ${details.title}",
+                            contentDescription = stringResource(id = R.string.movie_poster_content_description, details.title),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .aspectRatio(2 / 3f)
@@ -161,7 +162,7 @@ fun PeliculaDetallesScreen(peliculaId: Int, navController: NavController) {
                 item {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(
-                            text = "Sinopsis",
+                            text = stringResource(id = R.string.movie_details_synopsis),
                             style = typography.titleLarge,
                             modifier = Modifier.padding(bottom = 8.dp)
                         )
@@ -173,7 +174,7 @@ fun PeliculaDetallesScreen(peliculaId: Int, navController: NavController) {
                         Text(
                             buildAnnotatedString {
                                 withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp)) {
-                                    append("Géneros:\n")
+                                    append(stringResource(id = R.string.movie_details_genres))
                                 }
                                 append(details.genres.joinToString { it.name })
                             },
@@ -183,7 +184,7 @@ fun PeliculaDetallesScreen(peliculaId: Int, navController: NavController) {
                         Text(
                             buildAnnotatedString {
                                 withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp)) {
-                                    append("Fecha de lanzamiento:\n")
+                                    append(stringResource(id = R.string.movie_details_release_date))
                                 }
                                 append(details.releaseDate)
                             },
@@ -193,9 +194,9 @@ fun PeliculaDetallesScreen(peliculaId: Int, navController: NavController) {
                         Text(
                             buildAnnotatedString {
                                 withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp)) {
-                                    append("Calificación:\n")
+                                    append(stringResource(id = R.string.movie_details_rating))
                                 }
-                                append("${String.format("%.1f", details.voteAverage)} / 10")
+                                append("${String.format("%.1f", details.voteAverage)}${stringResource(id = R.string.movie_details_rating_suffix)}")
                             },
                             style = typography.bodyMedium,
                             modifier = Modifier.padding(bottom = 12.dp)
@@ -203,9 +204,9 @@ fun PeliculaDetallesScreen(peliculaId: Int, navController: NavController) {
                         Text(
                             buildAnnotatedString {
                                 withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp)) {
-                                    append("Duración:\n")
+                                    append(stringResource(id = R.string.movie_details_duration))
                                 }
-                                append("${details.runtime} minutos")
+                                append("${details.runtime}${stringResource(id = R.string.movie_details_duration_suffix)}")
                             },
                             style = typography.bodyMedium,
                             modifier = Modifier.padding(bottom = 12.dp)
@@ -213,7 +214,7 @@ fun PeliculaDetallesScreen(peliculaId: Int, navController: NavController) {
                     }
                 }
                 item {
-                    Text(text = "Reparto", style = typography.titleLarge, modifier = Modifier.padding(16.dp))
+                    Text(text = stringResource(id = R.string.movie_details_cast), style = typography.titleLarge, modifier = Modifier.padding(16.dp))
                     LazyRow(modifier = Modifier.padding(horizontal = 16.dp)) {
                         items(viewModel.cast) { member ->
                             Column(
@@ -225,7 +226,7 @@ fun PeliculaDetallesScreen(peliculaId: Int, navController: NavController) {
                                 val imageUrl = "https://image.tmdb.org/t/p/w200${member.profilePath}"
                                 AsyncImage(
                                     model = imageUrl,
-                                    contentDescription = "Foto de ${member.name}",
+                                    contentDescription = stringResource(id = R.string.cast_member_photo_content_description, member.name),
                                     modifier = Modifier
                                         .width(100.dp)
                                         .height(150.dp)
@@ -238,7 +239,7 @@ fun PeliculaDetallesScreen(peliculaId: Int, navController: NavController) {
                     }
                 }
                 item {
-                    Text(text = "Películas similares", style = typography.titleLarge, modifier = Modifier.padding(16.dp))
+                    Text(text = stringResource(id = R.string.similar_movies), style = typography.titleLarge, modifier = Modifier.padding(16.dp))
                     LazyRow(modifier = Modifier.padding(horizontal = 16.dp)) {
                         items(viewModel.similarMovies) { movie ->
                             Card(
@@ -248,7 +249,7 @@ fun PeliculaDetallesScreen(peliculaId: Int, navController: NavController) {
                                 Box(modifier = Modifier.width(120.dp).height(180.dp)) {
                                     AsyncImage(
                                         model = "https://image.tmdb.org/t/p/w500${movie.posterPath}",
-                                        contentDescription = "Poster de ${movie.title}",
+                                        contentDescription = stringResource(id = R.string.movie_poster_content_description, movie.title),
                                         modifier = Modifier.fillMaxSize()
                                     )
                                     Box(
@@ -275,7 +276,7 @@ fun PeliculaDetallesScreen(peliculaId: Int, navController: NavController) {
             }
         } else {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text("Cargando detalles...")
+                Text(stringResource(id = R.string.loading_details))
             }
         }
 
@@ -289,7 +290,7 @@ fun PeliculaDetallesScreen(peliculaId: Int, navController: NavController) {
             IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Atrás",
+                    contentDescription = stringResource(id = R.string.back_button_content_description),
                     tint = Color.White,
                     modifier = Modifier
                         .clip(CircleShape)
@@ -302,7 +303,7 @@ fun PeliculaDetallesScreen(peliculaId: Int, navController: NavController) {
                     IconButton(onClick = { viewModel.toggleWatchlist() }) {
                         Icon(
                             imageVector = if (isWatchlist) Icons.Default.Check else Icons.Default.Add,
-                            contentDescription = "Agregar a la lista de seguimiento",
+                            contentDescription = stringResource(id = R.string.add_to_watchlist_content_description),
                             tint = Color.White,
                             modifier = Modifier
                                 .clip(CircleShape)
@@ -313,7 +314,7 @@ fun PeliculaDetallesScreen(peliculaId: Int, navController: NavController) {
                     IconButton(onClick = { viewModel.toggleFavorite() }) {
                         Icon(
                             imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-                            contentDescription = "Marcar como favorito",
+                            contentDescription = stringResource(id = R.string.mark_as_favorite_content_description),
                             tint = Color.White,
                             modifier = Modifier
                                 .clip(CircleShape)
