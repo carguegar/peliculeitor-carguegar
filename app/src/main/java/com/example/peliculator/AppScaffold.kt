@@ -34,8 +34,16 @@ fun AppScaffold(
     navController: NavController,
     content: @Composable (PaddingValues) -> Unit
 ) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+    val showBottomBar = currentDestination?.hierarchy?.any { it.route == "splash" } != true
+
     Scaffold(
-        bottomBar = { AppBottomNavigationBar(navController = navController) }
+        bottomBar = {
+            if (showBottomBar) {
+                AppBottomNavigationBar(navController = navController)
+            }
+        }
     ) { innerPadding ->
         content(innerPadding)
     }
@@ -70,7 +78,7 @@ private fun AppBottomNavigationBar(navController: NavController) {
                             saveState = true
                         }
                         launchSingleTop = true
-                        restoreState = false 
+                        restoreState = false
                     }
                 }
             )

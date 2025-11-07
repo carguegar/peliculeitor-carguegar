@@ -18,6 +18,7 @@ import com.example.peliculator.ui.theme.PeliculatorTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
@@ -26,11 +27,13 @@ class MainActivity : ComponentActivity() {
                 AppScaffold(navController = navController) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = "peliculas",
+                        startDestination = "splash",
                         modifier = Modifier.padding(innerPadding),
                         enterTransition = { fadeIn(animationSpec = tween(300)) },
                         exitTransition = { fadeOut(animationSpec = tween(300)) }
                     ) {
+                        composable("splash") { SplashScreen(navController) }
+
                         composable("peliculas") { PeliculasScreen(navController) }
                         composable("series") { SeriesScreen(navController) }
                         composable("favoritos") { FavoritosScreen(navController) }

@@ -307,7 +307,7 @@ fun SerieDetallesScreen(serieId: Int, navController: NavController) {
                 )
             }
             if (details != null) {
-                Row(modifier = Modifier.padding(end = 16.dp)) {
+                Row() {
                     IconButton(onClick = {viewModel.toggleWatchlist()}) {
                         Icon(
                             imageVector = if (isWatchlist) Icons.Default.Check else Icons.Default.Add,
